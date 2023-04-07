@@ -5,11 +5,12 @@ import * as yup from "yup";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Image from 'next/image';
+
 import ShowToast from "../components/toast";
 import CInput from "../components/input";
 import CButton from "../components/button";
-
-// import { CInput, CButton, ShowToast } from "./components";
+import { borderColor } from "./teams";
 
 const schema = yup.object().shape({
   email: yup.string().required("Campo requerido").email("Correo inválido"),
@@ -44,10 +45,17 @@ const Auth: NextPage = () => {
           style={{
             width: "65%",
             height: "100%",
-            backgroundColor: "green",
+            // backgroundColor: "green",
+            backgroundColor: borderColor,
           }}
         >
-          <div>Imagen</div>
+         {/*  <Image src="/imgs/image-iot.png"
+            width={300}
+            height={300}
+            style={{
+              width: '100%', height: '100%', objectFit: 'contain'
+            }}
+            alt="imagen" /> */}
         </div>
         <div
           style={{

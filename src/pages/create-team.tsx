@@ -17,7 +17,6 @@ import { CHeader } from "./_document";
 import ShowToast from "../components/toast";
 import CButton from "../components/button";
 import CInput from "../components/input";
-// import { CInput, CButton, ShowToast }  from "./components";
 
 interface TabPanelProps {
     children?: React.ReactNode;

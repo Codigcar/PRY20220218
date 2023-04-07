@@ -17,7 +17,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
                 render: data.message,
                 type: "error",
                 isLoading: false,
-                autoClose: 4000,
+                autoClose: 2000,
                 closeButton: true,
             });
 
@@ -31,7 +31,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
             render: "Todo correcto",
             type: "success",
             isLoading: false,
-            autoClose: 4000,
+            autoClose: 2000,
             closeButton: true
         });
 
@@ -44,7 +44,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
             render: err.message,
             type: "error",
             isLoading: false,
-            autoClose: 4000,
+            autoClose: 2000,
             closeButton: true
         });
         return {

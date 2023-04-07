@@ -12,7 +12,6 @@ export const CHeader = ({ children }: any) => {
     paddingRight: 30
   }} >
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div>Logo</div>
       <div style={{ paddingLeft: 25 }}>
         <Link href="/teams" style={{ textDecoration: 'none', color: 'white' }}>
           <div>Inicio</div>
