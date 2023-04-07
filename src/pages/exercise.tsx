@@ -1,16 +1,17 @@
 import { NextPage } from "next";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { CInput } from "./components/input";
+import { FormControl, FormHelperText, InputLabel, Select } from "@mui/material";
 import * as yup from "yup";
-import { generateSelectOptions } from "./create-team";
 import { fetchCustom } from "@/utils/fetchCustom";
 import { useEffect, useState } from "react";
-import { showToast } from "./components/toast";
 import { ToastContainer } from "react-toastify";
-import { CButton } from "./components/button";
+
+import { generateSelectOptions } from "./create-team";
 import { CHeader } from "./_document";
+import showToast from "./components/toast";
+import CInput from "./components/input";
+import CButton from "./components/button";
 
 
 const schema1 = yup.object().shape({

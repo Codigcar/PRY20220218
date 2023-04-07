@@ -7,8 +7,10 @@ type Props = {
     onSubmit: (body: any) => Promise<void>
 }
 
-export const CButton = ({ text = "Registrar", handleSubmit, onSubmit }: Props) => {
+const CButton = ({ text = "Registrar", handleSubmit, onSubmit }: Props) => {
     return <Button variant="contained" size="large" fullWidth onClick={handleSubmit(onSubmit)}>
         {text}
     </Button>
 }
+
+export default CButton

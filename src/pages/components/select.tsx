@@ -10,11 +10,9 @@ type Props = {
     control: Control<FieldValues> | undefined
     options: any
     label: string
-    // valueData: string
-    // onChangeData: ((event: SelectChangeEvent<string>, child: ReactNode) => void) | undefined
 }
 
-export const CSelect = ({ name, control, options, label, }: Props) => {
+const CSelect = ({ name, control, options, label, }: Props) => {
     const generateSelectOptions = () => {
         return options.map((option: any) => {
             return (
@@ -42,8 +40,9 @@ export const CSelect = ({ name, control, options, label, }: Props) => {
                 >
                     {generateSelectOptions()}
                 </Select>
-                {/* {error && <FormHelperText error>{error?.message}</FormHelperText>} */}
             </FormControl>
         )}
     />
 }
+
+export default CSelect

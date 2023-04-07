@@ -1,22 +1,22 @@
 import { NextPage } from "next";
 import SwipeableViews from 'react-swipeable-views';
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { CInput } from "./components/input";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 import * as yup from "yup";
 
-import { showToast } from "./components/toast";
 import { fetchCustom } from "@/utils/fetchCustom";
-import { CButton } from "./components/button";
 import { CHeader } from "./_document";
+import CInput from "./components/input";
+import CButton from "./components/button";
+import showToast from "./components/toast";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -134,9 +134,6 @@ const CreateTeam: NextPage = () => {
 
     const onSubmit2 = async (body: any) => {
         const newTeam = await showToast({ path: '/team', method: "POST", body })
-        console.log("🚀 -------------------------------------------------------------🚀")
-        console.log("🚀 ~ file: create-team.tsx:139 ~ onSubmit2 ~ newTeam:", newTeam)
-        console.log("🚀 -------------------------------------------------------------🚀")
         if (!newTeam.status) return
         setTeams([...teams, newTeam.data])
     }

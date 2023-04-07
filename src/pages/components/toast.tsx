@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { toast } from "react-toastify";
 
 
-export const showToast = async ({ path, method = "GET", body }: any) => {
+const showToast = async ({ path, method = "GET", body }: any) => {
     const id = toast.loading("Please wait...")
     const resp = await fetch(`${baseUrl}${path}`, {
         method,
@@ -53,29 +53,7 @@ export const showToast = async ({ path, method = "GET", body }: any) => {
             data: err
         }
     });
-
-    console.log("🚀 ------------------------------------------------🚀")
-    console.log("🚀 ~ file: toast.tsx:10 ~ showToast ~ resp:", resp)
-    console.log("🚀 ------------------------------------------------🚀")
-
-    // const response = await toast.promise(
-    //     fetch(`${baseUrl}${path}`, {
-    //         method,
-    //         ...(method !== "GET" && { body: JSON.stringify(body) }),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }),
-    //     {
-    //         pending: 'Cargando...',
-    //         success: 'Registro exitoso',
-    //         error: 'Hubo un problema'
-    //     }
-    // );
-
-    // const data = await response.json()
-    // console.log("🚀 ------------------------------------------------🚀")
-    // console.log("🚀 ~ file: toast.tsx:23 ~ showToast ~ data:", data)
-    // console.log("🚀 ------------------------------------------------🚀")
     return resp
 }
+
+export default showToast

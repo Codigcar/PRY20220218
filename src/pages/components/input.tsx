@@ -8,7 +8,7 @@ type Props = {
     type?: string
 }
 
-export const CInput = ({ control, name, label, type }: Props) => {
+const CInput = ({ control, name, label, type }: Props) => {
     return (
         <div style={{ paddingTop: 15, paddingBottom: 15 }}>
             <Controller
@@ -34,3 +34,5 @@ export const CInput = ({ control, name, label, type }: Props) => {
 
     )
 }
+
+export default CInput

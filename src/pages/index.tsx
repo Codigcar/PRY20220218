@@ -1,14 +1,14 @@
-import { Button, TextField } from "@mui/material";
 import type { NextPage } from "next";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/router";
-import { CInput } from "./components/input";
-import { CButton } from "./components/button";
-import { showToast } from "./components/toast";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+
+import CInput from "./components/input";
+import CButton from "./components/button";
+import showToast from "./components/toast";
 
 const schema = yup.object().shape({
   email: yup.string().required("Campo requerido").email("Correo inválido"),
