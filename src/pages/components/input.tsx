@@ -5,9 +5,10 @@ type Props = {
     control: Control<FieldValues> | undefined
     name: string
     label: string
+    type?: string
 }
 
-export const CInput = ({ control, name, label, ...props }: Props) => {
+export const CInput = ({ control, name, label, type }: Props) => {
     return (
         <div style={{ paddingTop: 15, paddingBottom: 15 }}>
             <Controller
@@ -25,7 +26,7 @@ export const CInput = ({ control, name, label, ...props }: Props) => {
                         helperText={error?.message}
                         fullWidth
                         autoComplete="off"
-                        {...props}
+                        type={type}
                     />
                 )}
             />
