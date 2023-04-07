@@ -9,13 +9,12 @@ import Box from '@mui/material/Box';
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { CInput } from "./components/input";
 import * as yup from "yup";
-import { baseUrl } from "@/utils/base";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import { showToast } from "./components/toast";
 import { fetchCustom } from "@/utils/fetchCustom";
 import { CButton } from "./components/button";
@@ -97,18 +96,12 @@ export const generateSelectOptions = (options = optionsMocks) => {
 const CreateTeam: NextPage = () => {
     const theme = useTheme();
     const [value, setValue] = useState(0)
-    const [coachs, setCoachs] = useState([])
-    const [teams, setTeams] = useState([])
+    const [coachs, setCoachs] = useState<any>([])
+    const [teams, setTeams] = useState<any>([])
 
     useEffect(() => {
-        fetchCustom({ path: '/coach' }).then(resp => {
-            console.log(resp)
-            setCoachs(resp)
-        })
-        fetchCustom({ path: '/team' }).then(resp => {
-            console.log(resp)
-            setTeams(resp)
-        })
+        fetchCustom({ path: '/coach' }).then(resp => setCoachs(resp))
+        fetchCustom({ path: '/team' }).then(resp => setTeams(resp))
     }, [])
 
 
@@ -136,11 +129,18 @@ const CreateTeam: NextPage = () => {
     };
 
     const onSubmit = async ({ name, coach }: any) => {
-        await showToast({ path: '/coach', method: "POST", body: { name, coach } })
+        const newCoach = await showToast({ path: '/coach', method: "POST", body: { name, coach } })
+        if (!newCoach.status) return
+        setCoachs([...coachs, newCoach.data])
     };
 
     const onSubmit2 = async (body: any) => {
-        await showToast({ path: '/team', method: "POST", body })
+        const newTeam = await showToast({ path: '/team', method: "POST", body })
+        console.log("🚀 -------------------------------------------------------------🚀")
+        console.log("🚀 ~ file: create-team.tsx:139 ~ onSubmit2 ~ newTeam:", newTeam)
+        console.log("🚀 -------------------------------------------------------------🚀")
+        if (!newTeam.status) return
+        setTeams([...teams, newTeam.data])
     }
 
     const onSubmit3 = async (body: any) => {
@@ -270,7 +270,7 @@ const CreateTeam: NextPage = () => {
         <>
             <CHeader />
             <form>
-                <ToastContainer />
+                {/* <ToastContainer /> */}
                 <Box sx={{ borderColor: '#E7EBEF', borderWidth: 8, width: "80%", margin: 'auto', marginTop: 8 }}>
                     <AppBar position="static">
                         <Tabs

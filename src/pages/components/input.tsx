@@ -7,7 +7,7 @@ type Props = {
     label: string
 }
 
-export const CInput = ({ control, name, label }: Props) => {
+export const CInput = ({ control, name, label, ...props }: Props) => {
     return (
         <div style={{ paddingTop: 15, paddingBottom: 15 }}>
             <Controller
@@ -25,6 +25,7 @@ export const CInput = ({ control, name, label }: Props) => {
                         helperText={error?.message}
                         fullWidth
                         autoComplete="off"
+                        {...props}
                     />
                 )}
             />

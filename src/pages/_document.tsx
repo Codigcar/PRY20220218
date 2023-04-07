@@ -2,7 +2,7 @@ import theme from '@/config/theme'
 import { Button } from '@mui/material'
 import { Html, Head, Main, NextScript } from 'next/document'
 import Link from 'next/link'
-import { useEffect } from 'react'
+
 
 export const CHeader = ({ children }: any) => {
   return <div style={{
@@ -28,6 +28,11 @@ export const CHeader = ({ children }: any) => {
       <div style={{ paddingLeft: 30 }}>
         <Link href="/exercise">
           <Button variant="contained">IoT +</Button>
+        </Link>
+      </div >
+      <div style={{ paddingLeft: 30 }}>
+        <Link href="/">
+          <Button variant="contained" color="error">Salir</Button>
         </Link>
       </div >
     </div>
