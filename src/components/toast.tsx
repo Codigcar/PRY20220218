@@ -1,9 +1,8 @@
 import { baseUrl } from "@/utils/base";
-import { useRef } from "react";
 import { toast } from "react-toastify";
 
 
-const showToast = async ({ path, method = "GET", body }: any) => {
+export default async function ShowToast({ path, method = "GET", body }: any) {
     const id = toast.loading("Please wait...")
     const resp = await fetch(`${baseUrl}${path}`, {
         method,
@@ -55,5 +54,3 @@ const showToast = async ({ path, method = "GET", body }: any) => {
     });
     return resp
 }
-
-export default showToast

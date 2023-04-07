@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material"
+import { FC } from "react"
 import { Control, Controller, FieldValues } from "react-hook-form"
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
     type?: string
 }
 
-const CInput = ({ control, name, label, type }: Props) => {
+const CInput: FC<Props> = ({ control, name, label, type }) => {
     return (
         <div style={{ paddingTop: 15, paddingBottom: 15 }}>
             <Controller

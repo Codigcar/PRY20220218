@@ -5,10 +5,11 @@ import * as yup from "yup";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ShowToast from "../components/toast";
+import CInput from "../components/input";
+import CButton from "../components/button";
 
-import CInput from "./components/input";
-import CButton from "./components/button";
-import showToast from "./components/toast";
+// import { CInput, CButton, ShowToast } from "./components";
 
 const schema = yup.object().shape({
   email: yup.string().required("Campo requerido").email("Correo inválido"),
@@ -24,7 +25,7 @@ const Auth: NextPage = () => {
   });
 
   const onSubmit = async (body: any) => {
-    const response: any = await showToast({ path: '/user/login', method: "POST", body })
+    const response: any = await ShowToast({ path: '/user/login', method: "POST", body })
     if (!response.status) return
     router.push("/teams");
   };

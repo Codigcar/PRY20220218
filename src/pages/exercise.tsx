@@ -9,9 +9,10 @@ import { ToastContainer } from "react-toastify";
 
 import { generateSelectOptions } from "./create-team";
 import { CHeader } from "./_document";
-import showToast from "./components/toast";
-import CInput from "./components/input";
-import CButton from "./components/button";
+import ShowToast from "../components/toast";
+import CInput from "../components/input";
+import CButton from "../components/button";
+// import { CInput, CButton, ShowToast } from "./components";
 
 
 const schema1 = yup.object().shape({
@@ -37,7 +38,7 @@ const Calculation: NextPage = () => {
     });
 
     const onSubmit = async (body: any) => {
-        await showToast({ path: '/exercise-calculation', method: "POST", body })
+        await ShowToast({ path: '/exercise-calculation', method: "POST", body })
     }
 
 

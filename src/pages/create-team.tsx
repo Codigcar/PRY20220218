@@ -14,9 +14,10 @@ import * as yup from "yup";
 
 import { fetchCustom } from "@/utils/fetchCustom";
 import { CHeader } from "./_document";
-import CInput from "./components/input";
-import CButton from "./components/button";
-import showToast from "./components/toast";
+import ShowToast from "../components/toast";
+import CButton from "../components/button";
+import CInput from "../components/input";
+// import { CInput, CButton, ShowToast }  from "./components";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -127,19 +128,19 @@ const CreateTeam: NextPage = () => {
     };
 
     const onSubmit = async ({ name, coach }: any) => {
-        const newCoach = await showToast({ path: '/coach', method: "POST", body: { name, coach } })
+        const newCoach = await ShowToast({ path: '/coach', method: "POST", body: { name, coach } })
         if (!newCoach.status) return
         setCoachs([...coachs, newCoach.data])
     };
 
     const onSubmit2 = async (body: any) => {
-        const newTeam = await showToast({ path: '/team', method: "POST", body })
+        const newTeam = await ShowToast({ path: '/team', method: "POST", body })
         if (!newTeam.status) return
         setTeams([...teams, newTeam.data])
     }
 
     const onSubmit3 = async (body: any) => {
-        await showToast({ path: '/player', method: "POST", body })
+        await ShowToast({ path: '/player', method: "POST", body })
     }
 
     const StepOne = () => {

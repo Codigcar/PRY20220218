@@ -1,4 +1,5 @@
 import { Button } from "@mui/material"
+import { FC } from "react"
 import { FieldValues, UseFormHandleSubmit } from "react-hook-form"
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
     onSubmit: (body: any) => Promise<void>
 }
 
-const CButton = ({ text = "Registrar", handleSubmit, onSubmit }: Props) => {
+const CButton: FC<Props> = ({ text = "Registrar", handleSubmit, onSubmit }) => {
     return <Button variant="contained" size="large" fullWidth onClick={handleSubmit(onSubmit)}>
         {text}
     </Button>
