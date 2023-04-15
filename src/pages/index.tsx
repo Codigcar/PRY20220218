@@ -10,7 +10,6 @@ import Image from 'next/image';
 import ShowToast from "../components/toast";
 import CInput from "../components/input";
 import CButton from "../components/button";
-import { borderColor } from "./teams";
 
 const schema = yup.object().shape({
   email: yup.string().required("Campo requerido").email("Correo inválido"),
@@ -43,19 +42,25 @@ const Auth: NextPage = () => {
       >
         <div
           style={{
-            width: "65%",
+            width: "58%",
             height: "100%",
-            // backgroundColor: "green",
-            backgroundColor: borderColor,
           }}
         >
-         {/*  <Image src="/imgs/image-iot.png"
-            width={300}
-            height={300}
-            style={{
-              width: '100%', height: '100%', objectFit: 'contain'
-            }}
-            alt="imagen" /> */}
+          <div style={{
+            alignItems: 'center',
+            display: 'flex',
+            height: '100%',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }}>
+            <Image src="/imgs/logo-login.png"
+              width={350}
+              height={500}
+              style={{
+                // width: '80%', height: '80%', objectFit: 'contain'
+              }}
+              alt="imagen" />
+          </div>
         </div>
         <div
           style={{
@@ -73,6 +78,7 @@ const Auth: NextPage = () => {
             }}
           >
             <form style={{ width: '80%' }}>
+              <h2 style={{ textAlign: 'center', fontFamily: 'monospace' }}>FUTBOLTIME</h2>
               <CInput
                 control={control}
                 name="email"

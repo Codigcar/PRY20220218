@@ -25,8 +25,13 @@ export const CHeader = ({ children }: any) => {
         </Link>
       </div >
       <div style={{ paddingLeft: 30 }}>
-        <Link href="/exercise">
+        <Link href="/IoT">
           <Button variant="contained">IoT +</Button>
+        </Link>
+      </div >
+      <div style={{ paddingLeft: 30 }}>
+        <Link href="/result">
+          <Button variant="contained">Resultado</Button>
         </Link>
       </div >
       <div style={{ paddingLeft: 30 }}>
@@ -49,6 +54,9 @@ export default function Document() {
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
           crossOrigin="anonymous"
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet" />
       </Head>
       <body>
         <Main />

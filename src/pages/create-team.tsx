@@ -38,7 +38,7 @@ function TabPanel(props: TabPanelProps) {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                    <div>{children}</div>
                 </Box>
             )}
         </div>
@@ -78,6 +78,7 @@ const schema3 = yup.object().shape({
     height: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     weight: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     team: yup.string().required("* Campo requerido"),
+    role: yup.string().required("* Campo requerido"),
 });
 
 
@@ -225,6 +226,12 @@ const CreateTeam: NextPage = () => {
                     control={control3}
                     label="Peso corporal"
                 />
+                <CInput
+                    key="5"
+                    name="role"
+                    control={control3}
+                    label="Posición"
+                />
 
 
                 <div style={{ paddingTop: 15, paddingBottom: 15 }}>
@@ -250,9 +257,7 @@ const CreateTeam: NextPage = () => {
                         )}
                     />
                 </div>
-                {/* <Button variant="contained" size="large" onClick={handleSubmit3(onSubmit3)}>
-                    Registrar
-                </Button> */}
+
                 <CButton
                     handleSubmit={handleSubmit3}
                     onSubmit={onSubmit3}
@@ -265,7 +270,6 @@ const CreateTeam: NextPage = () => {
         <>
             <CHeader />
             <form>
-                {/* <ToastContainer /> */}
                 <Box sx={{ borderColor: '#E7EBEF', borderWidth: 8, width: "80%", margin: 'auto', marginTop: 8 }}>
                     <AppBar position="static">
                         <Tabs
@@ -289,7 +293,6 @@ const CreateTeam: NextPage = () => {
                         <TabPanel key="1" value={value} index={0} dir={theme.direction}>
                             <StepOne />
                         </TabPanel>
-
                         <TabPanel key="2" value={value} index={1} dir={theme.direction}>
                             <StepTwo />
                         </TabPanel>
@@ -299,7 +302,7 @@ const CreateTeam: NextPage = () => {
 
                     </SwipeableViews>
                 </Box>
-            </form>
+            </form >
         </>
 
     );

@@ -5,7 +5,6 @@ import { FormControl, FormHelperText, InputLabel, Select } from "@mui/material";
 import * as yup from "yup";
 import { fetchCustom } from "@/utils/fetchCustom";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 
 import { generateSelectOptions } from "./create-team";
 import { CHeader } from "./_document";
@@ -16,9 +15,10 @@ import CButton from "../components/button";
 
 const schema1 = yup.object().shape({
     player: yup.string().required("* Campo requerido"),
-    weight: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    average_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    maximum_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     traveled_distance: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
-    calorie_consumption: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    sprint: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     average_heart_rate: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     time_played: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
 });
@@ -28,7 +28,7 @@ const Calculation: NextPage = () => {
     const [calculation, setCalculation] = useState<any>([])
 
     useEffect(() => {
-        fetchCustom({ path: '/team' }).then(resp => setTeams(resp))
+        fetchCustom({ path: '/player' }).then(resp => setTeams(resp))
     }, [])
 
     const { handleSubmit, control } = useForm({
@@ -38,9 +38,6 @@ const Calculation: NextPage = () => {
 
     const onSubmit = async (body: any) => {
         const exercise = await ShowToast({ path: '/exercise-calculation', method: "POST", body })
-        console.log("🚀 ----------------------------------------------------------🚀")
-        console.log("🚀 ~ file: exercise.tsx:41 ~ onSubmit ~ exercise:", exercise)
-        console.log("🚀 ----------------------------------------------------------🚀")
         if (!exercise.status) return
         setCalculation(exercise.data)
     }
@@ -48,8 +45,9 @@ const Calculation: NextPage = () => {
     return (
         <div>
             <CHeader />
-            <div style={{ display: 'flex', marginTop: 30 }}>
-                <div style={{ width: '48%' }}>
+            <div style={{ display: 'flex', marginTop: 30, flexDirection: 'column' }}>
+                <h2 style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 15 }}>Registro del Artefacto IoT</h2>
+                <div style={{ width: '65%', margin: 'auto' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '80%', margin: 'auto' }}>
                         <div style={{ paddingTop: 15, paddingBottom: 15 }}>
                             <Controller
@@ -60,10 +58,10 @@ const Calculation: NextPage = () => {
                                     fieldState: { invalid, error }
                                 }) => (
                                     <FormControl fullWidth>
-                                        <InputLabel error={invalid}>Selecciona un equipo</InputLabel>
+                                        <InputLabel error={invalid}>Selecciona un futbolista</InputLabel>
                                         <Select
                                             value={value}
-                                            label="Selecciona un equipo"
+                                            label="Selecciona un futbolista"
                                             onChange={onChange}
                                             error={invalid}
                                         >
@@ -76,30 +74,34 @@ const Calculation: NextPage = () => {
                         </div>
 
                         <CInput
-                            name="weight"
+                            name="average_speed"
                             control={control}
-                            label="Peso corporal"
+                            label="Velocidad media"
                         />
-
+                        <CInput
+                            name="maximum_speed"
+                            control={control}
+                            label="Velocidad máxima"
+                        />
                         <CInput
                             name="traveled_distance"
                             control={control}
                             label="Distancia recorrida"
                         />
                         <CInput
-                            name="calorie_consumption"
+                            name="sprint"
                             control={control}
-                            label="Consumo calorias"
+                            label="Sprint"
                         />
                         <CInput
                             name="average_heart_rate"
                             control={control}
-                            label="Media ritmo Cardiaco"
+                            label="Frecuencia Cardiaca media"
                         />
                         <CInput
                             name="time_played"
                             control={control}
-                            label="Tiempo jugando"
+                            label="Tiempo jugador"
                         />
 
                         <CButton
@@ -108,42 +110,7 @@ const Calculation: NextPage = () => {
                         />
                     </div>
                 </div>
-                <div style={{ width: '48%', marginTop: 10 }}>
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">Resultado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div>
-                                        Frecuencia cardiaca promedio : {calculation.average_heart_rate}
-                                    </div>
-                                    <div>
-                                        Calorias : {calculation.calorie_consumption}
-                                    </div>
-                                    <div>
-                                        Jugador : {calculation.player}
-                                    </div>
-                                    <div>
-                                        Cálculo extra : {calculation.some_extra_calculation}
-                                    </div>
-                                    <div>
-                                        Tiempo jugado : {calculation.time_played}
-                                    </div>
-                                    <div>
-                                        Distancia recorrida : {calculation.traveled_distance}
-                                    </div>
-                                    <div>
-                                        Peso : {calculation.weight}
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+
             </div>
         </div>
     )
