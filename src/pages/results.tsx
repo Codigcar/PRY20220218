@@ -15,9 +15,9 @@ const schema1 = yup.object().shape({
     player: yup.string().required("* Campo requerido"),
 });
 
-const Result: NextPage = () => {
+const Results: NextPage = () => {
     const [teams, setTeams] = useState([])
-    const [calculation, setCalculation] = useState<any>([])
+    const [calculation, setCalculation] = useState<any>(null)
 
     useEffect(() => {
         fetchCustom({ path: '/player' }).then(resp => setTeams(resp))
@@ -83,28 +83,28 @@ const Result: NextPage = () => {
                             <tr>
                                 <td>
                                     <div>
-                                        Posición del campo : {calculation.player.role}
+                                        Posición del campo : {calculation?.player?.role}
                                     </div>
                                     <div>
-                                        Nombre del futbolista : {calculation.player.name}
+                                        Nombre del futbolista : {calculation?.player?.name}
                                     </div>
                                     <div>
-                                        Velocidad media: {calculation.average_speed_calculated}
+                                        Velocidad media: {calculation?.average_speed_calculated}
                                     </div>
                                     <div>
-                                        Velocidad máxima: {calculation.maximum_speed_calculated}
+                                        Velocidad máxima: {calculation?.maximum_speed_calculated}
                                     </div>
                                     <div>
-                                        Distancia Recorrida: {calculation.traveled_distance_calculated}
+                                        Distancia Recorrida: {calculation?.traveled_distance_calculated}
                                     </div>
                                     <div>
-                                        Sprint (máxima velocidad): {calculation.sprint}
+                                        Sprint (máxima velocidad): {calculation?.sprint}
                                     </div>
                                     <div>
-                                        Frecuencia Cardiaca: {calculation.average_heart_rate}
+                                        Frecuencia Cardiaca: {calculation?.average_heart_rate}
                                     </div>
                                     <div>
-                                        Tiempo jugado: {calculation.time_played_calculated}
+                                        Tiempo jugado: {calculation?.time_played_calculated}
                                     </div>
                                 </td>
                             </tr>
@@ -116,4 +116,4 @@ const Result: NextPage = () => {
     )
 }
 
-export default Result
+export default Results

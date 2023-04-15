@@ -30,7 +30,7 @@ export const CHeader = ({ children }: any) => {
         </Link>
       </div >
       <div style={{ paddingLeft: 30 }}>
-        <Link href="/result">
+        <Link href="/results">
           <Button variant="contained">Resultado</Button>
         </Link>
       </div >
