@@ -89,22 +89,25 @@ const Results: NextPage = () => {
                                         Nombre del futbolista : {calculation?.player?.name}
                                     </div>
                                     <div>
-                                        Velocidad media: {calculation?.average_speed_calculated}
+                                        <br />
                                     </div>
                                     <div>
-                                        Velocidad máxima: {calculation?.maximum_speed_calculated}
+                                        Velocidad media: {calculation?.average_speed_calculated} %
                                     </div>
                                     <div>
-                                        Distancia Recorrida: {calculation?.traveled_distance_calculated}
+                                        Velocidad máxima: {calculation?.maximum_speed_calculated.toFixed(2)} %
                                     </div>
                                     <div>
-                                        Sprint (máxima velocidad): {calculation?.sprint}
+                                        Distancia Recorrida: {calculation?.traveled_distance_calculated.toFixed(2)} %
                                     </div>
                                     <div>
-                                        Frecuencia Cardiaca: {calculation?.average_heart_rate}
+                                        Sprint (máxima velocidad): {calculation?.sprint_calculated.toFixed(2)} %
                                     </div>
                                     <div>
-                                        Tiempo jugado: {calculation?.time_played_calculated}
+                                        Frecuencia Cardiaca: {calculation?.average_heart_rate} %
+                                    </div>
+                                    <div>
+                                        Tiempo jugado: {calculation?.time_played_calculated.toFixed(2)} %
                                     </div>
                                 </td>
                             </tr>

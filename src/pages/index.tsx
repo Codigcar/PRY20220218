@@ -93,6 +93,7 @@ const Auth: NextPage = () => {
               <CButton
                 handleSubmit={handleSubmit}
                 onSubmit={onSubmit}
+                text="Ingresar"
               />
             </form>
           </div>

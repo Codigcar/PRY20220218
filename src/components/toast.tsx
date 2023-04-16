@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 
 export default async function ShowToast({ path, method = "GET", body }: any) {
-    const id = toast.loading("Please wait...")
+    const id = toast.loading("Cargando...")
     const resp = await fetch(`${baseUrl}${path}`, {
         method,
         ...(method !== "GET" && { body: JSON.stringify(body) }),
@@ -14,7 +14,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
         const data = await res.json()
         if (!data._id) {
             toast.update(id, {
-                render: data.message,
+                render: data.message ?? "Resultados no encontrados",
                 type: "error",
                 isLoading: false,
                 autoClose: 2000,
@@ -41,7 +41,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
         }
     }).catch(err => {
         toast.update(id, {
-            render: err.message,
+            render: err.message ?? "Resultados no encontrados",
             type: "error",
             isLoading: false,
             autoClose: 2000,

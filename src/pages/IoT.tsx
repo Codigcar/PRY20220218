@@ -19,7 +19,7 @@ const schema1 = yup.object().shape({
     maximum_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     traveled_distance: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     sprint: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
-    average_heart_rate: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    average_heart_rate: yup.number().typeError('* Debe ser un número').required("* Campo requerido").max(200, "* Debe ser menor que 200"),
     time_played: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
 });
 
