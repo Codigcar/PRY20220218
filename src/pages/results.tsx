@@ -92,22 +92,22 @@ const Results: NextPage = () => {
                                         <br />
                                     </div>
                                     <div>
-                                        Velocidad media: {calculation?.average_speed_calculated} %
+                                        Velocidad media: {calculation?.average_speed_calculated} {calculation?.average_speed_calculated && '%'}
                                     </div>
                                     <div>
-                                        Velocidad máxima: {calculation?.maximum_speed_calculated.toFixed(2)} %
+                                        Velocidad máxima: {calculation?.maximum_speed_calculated.toFixed(2)} {calculation?.maximum_speed_calculated.toFixed(2) && '%'}
                                     </div>
                                     <div>
-                                        Distancia Recorrida: {calculation?.traveled_distance_calculated.toFixed(2)} %
+                                        Distancia Recorrida: {calculation?.traveled_distance_calculated.toFixed(2)} {calculation?.traveled_distance_calculated.toFixed(2) && '%'}
                                     </div>
                                     <div>
-                                        Sprint (máxima velocidad): {calculation?.sprint_calculated.toFixed(2)} %
+                                        Sprint (máxima velocidad): {calculation?.sprint_calculated.toFixed(2)} {calculation?.sprint_calculated.toFixed(2) && '%'}
                                     </div>
                                     <div>
-                                        Frecuencia Cardiaca: {calculation?.average_heart_rate} %
+                                        Frecuencia Cardiaca: {calculation?.average_heart_rate} {calculation?.average_heart_rate && '%'}
                                     </div>
                                     <div>
-                                        Tiempo jugado: {calculation?.time_played_calculated.toFixed(2)} %
+                                        Tiempo jugado: {calculation?.time_played_calculated.toFixed(2)}  {calculation?.time_played_calculated.toFixed(2) && '%'}
                                     </div>
                                 </td>
                             </tr>
