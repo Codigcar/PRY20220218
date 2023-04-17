@@ -92,7 +92,7 @@ const Results: NextPage = () => {
                                         <br />
                                     </div>
                                     <div>
-                                        Velocidad media: {calculation?.average_speed_calculated} {calculation?.average_speed_calculated && '%'}
+                                        Velocidad media: {calculation?.average_speed_calculated.toFixed(2)} {calculation?.average_speed_calculated && '%'}
                                     </div>
                                     <div>
                                         Velocidad máxima: {calculation?.maximum_speed_calculated.toFixed(2)} {calculation?.maximum_speed_calculated.toFixed(2) && '%'}
