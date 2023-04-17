@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
@@ -64,16 +63,25 @@ const optionsMocks = [
 ];
 
 const schema1 = yup.object().shape({
-    name: yup.string().required("* Campo requerido")
+    name: yup.string().required("* Campo requerido").matches(
+        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g,
+        '* Solo debe contener letras'
+    )
 });
 
 const schema2 = yup.object().shape({
-    name: yup.string().required("* Campo requerido"),
+    name: yup.string().required("* Campo requerido").matches(
+        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g,
+        '* Solo debe contener letras'
+    ),
     coach: yup.string().required("* Campo requerido")
 });
 
 const schema3 = yup.object().shape({
-    name: yup.string().required("* Campo requerido"),
+    name: yup.string().required("* Campo requerido").matches(
+        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g,
+        '* Solo debe contener letras'
+    ),
     age: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     height: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     weight: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
