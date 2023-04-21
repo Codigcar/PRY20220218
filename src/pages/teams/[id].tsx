@@ -33,6 +33,7 @@ const TeamById: NextPage<any> = ({ team }: any) => {
                                 <th scope="col">Jugador</th>
                                 <th scope="col">Edad</th>
                                 <th scope="col">Altura</th>
+                                <th scope="col">Posición</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,6 +44,7 @@ const TeamById: NextPage<any> = ({ team }: any) => {
                                         <td>{player.name}</td>
                                         <td>{player.age}</td>
                                         <td>{player.height}</td>
+                                        <td>{player.role}</td>
                                     </tr>
                                 )
                             }

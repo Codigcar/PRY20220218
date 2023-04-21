@@ -12,7 +12,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
         }
     }).then(async res => {
         const data = await res.json()
-        if (!data._id && res.status !== 201) {
+        if (!data._id && (res.status !== 201 && res.status !== 200)) {
             toast.update(id, {
                 render: data.message ?? "Resultados no encontrados",
                 type: "error",

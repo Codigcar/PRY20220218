@@ -1,9 +1,11 @@
 import { NextPage } from "next";
 import { fetchCustom } from "@/utils/fetchCustom";
 import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Icon } from "@mui/material";
 import { useRouter } from "next/router";
 import { CHeader } from "../_document";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ShowToast from "@/components/toast";
 
 export const borderColor = "#C1C1C1"
 
@@ -18,6 +20,13 @@ const List: NextPage = () => {
 
     const handleDetails = (id: string) => {
         router.push(`/teams/${id}`)
+    }
+
+    const handleDelete = async (id: string) => {
+        const response: any = await ShowToast({ path: `/team/${id}`, method: "DELETE" })
+        // setTeams([])
+        if (!response.status) return
+        setTeams(prev => prev.filter((item: any) => item._id !== id))
     }
 
     return (
@@ -42,10 +51,17 @@ const List: NextPage = () => {
                                             {team.name}
                                         </div>
                                     </td>
-                                    <td style={{ display: 'flex', justifyContent: 'center', }}>
-                                        <Button variant="outlined" onClick={() => handleDetails(team._id)}>
-                                            Ver detalle
-                                        </Button>
+                                    <td style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'row', }}>
+                                            <Button variant="outlined" onClick={() => handleDetails(team._id)}>
+                                                Ver detalle
+                                            </Button>
+                                            <div style={{ paddingLeft: '20px' }}>
+                                                <Button variant="outlined" color="error" onClick={() => handleDelete(team._id)}>
+                                                    <DeleteIcon />
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             )

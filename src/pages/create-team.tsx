@@ -16,6 +16,7 @@ import { CHeader } from "./_document";
 import ShowToast from "../components/toast";
 import CButton from "../components/button";
 import CInput from "../components/input";
+import Image from "next/image";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -53,12 +54,12 @@ function a11yProps(index: number) {
 
 const optionsMocks = [
     {
-        label: "Dropdown Option 1",
-        value: "1",
+        name: "Dropdown Option 1",
+        _id: "1",
     },
     {
-        label: "Dropdown Option 2",
-        value: "2",
+        name: "Dropdown Option 2",
+        _id: "2",
     },
 ];
 
@@ -90,15 +91,34 @@ const schema3 = yup.object().shape({
 });
 
 
-export const generateSelectOptions = (options = optionsMocks) => {
+export const generateSelectOptions = (options = optionsMocks, value = "id") => {
     return options.map((option: any) => {
         return (
-            <MenuItem key={option._id} value={option._id}>
+            <MenuItem key={option._id} value={value === "key" ? option._id : option.name}>
                 {option.name}
             </MenuItem>
         );
     });
 };
+
+const rolesList = [
+    {
+        _id: "1",
+        name: "Delantero"
+    },
+    {
+        _id: "2",
+        name: "Defensa"
+    },
+    {
+        _id: "3",
+        name: "Volante"
+    },
+    {
+        _id: "4",
+        name: "Portero"
+    },
+]
 
 const CreateTeam: NextPage = () => {
     const theme = useTheme();
@@ -153,57 +173,77 @@ const CreateTeam: NextPage = () => {
 
     const StepOne = () => {
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', width: '80%', margin: 'auto' }}>
-                <CInput
-                    control={control}
-                    label="Nombre del entrenador"
-                    name="name"
-                />
-                <CButton
-                    handleSubmit={handleSubmit}
-                    onSubmit={onSubmit}
-                />
+            <div style={{ display: 'flex', flexDirection: 'row', }}>
+                <div style={{ display: 'flex', flex: 1 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                        <CInput
+                            control={control}
+                            label="Nombre del entrenador"
+                            name="name"
+                        />
+                        <CButton
+                            handleSubmit={handleSubmit}
+                            onSubmit={onSubmit}
+                        />
+                    </div>
+                </div>
+                <div>
+                    <Image src="/imgs/entrenador.jpeg"
+                        width={350}
+                        height={400}
+                        alt="imagen" />
+                </div>
             </div>
-
         )
     }
 
     const StepTwo = () => {
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', width: '80%', margin: 'auto' }}>
-                <CInput
-                    control={control2}
-                    label="Nombre del equipo"
-                    name="name"
-                />
-                <div style={{ paddingTop: 15, paddingBottom: 15 }}>
-                    <Controller
-                        control={control2}
-                        name="coach"
-                        render={({
-                            field: { onChange, value },
-                            fieldState: { invalid, error }
-                        }) => (
-                            <FormControl fullWidth>
-                                <InputLabel error={invalid}>Seleccionar entrenador</InputLabel>
-                                <Select
-                                    value={value}
-                                    label="Entrenador"
-                                    onChange={onChange}
-                                    error={invalid}
-                                >
-                                    {generateSelectOptions(coachs)}
-                                </Select>
-                                {error && <FormHelperText error>{error?.message}</FormHelperText>}
-                            </FormControl>
-                        )}
-                    />
+            <div style={{ display: 'flex', flexDirection: 'row', }}>
+                <div style={{ display: 'flex', flex: 1 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '90%' }}>
+                        <CInput
+                            control={control2}
+                            label="Nombre del equipo"
+                            name="name"
+                        />
+                        <div style={{ paddingTop: 15, paddingBottom: 15 }}>
+                            <Controller
+                                control={control2}
+                                name="coach"
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { invalid, error }
+                                }) => (
+                                    <FormControl fullWidth>
+                                        <InputLabel error={invalid}>Seleccionar entrenador</InputLabel>
+                                        <Select
+                                            value={value}
+                                            label="Entrenador"
+                                            onChange={onChange}
+                                            error={invalid}
+                                        >
+                                            {generateSelectOptions(coachs)}
+                                        </Select>
+                                        {error && <FormHelperText error>{error?.message}</FormHelperText>}
+                                    </FormControl>
+                                )}
+                            />
+                        </div>
+                        <CButton
+                            handleSubmit={handleSubmit2}
+                            onSubmit={onSubmit2}
+                        />
+                    </div>
                 </div>
-                <CButton
-                    handleSubmit={handleSubmit2}
-                    onSubmit={onSubmit2}
-                />
+                <div>
+                    <Image src="/imgs/futbolista.jpeg"
+                        width={400}
+                        height={350}
+                        alt="imagen" />
+                </div>
             </div>
+
         )
     }
 
@@ -234,13 +274,27 @@ const CreateTeam: NextPage = () => {
                     control={control3}
                     label="Peso corporal"
                 />
-                <CInput
-                    key="5"
-                    name="role"
+                <Controller
                     control={control3}
-                    label="Posición"
+                    name="role"
+                    render={({
+                        field: { onChange, value },
+                        fieldState: { invalid, error }
+                    }) => (
+                        <FormControl fullWidth>
+                            <InputLabel error={invalid}>Posición</InputLabel>
+                            <Select
+                                value={value}
+                                label="Posición"
+                                onChange={onChange}
+                                error={invalid}
+                            >
+                                {generateSelectOptions(rolesList)}
+                            </Select>
+                            {error && <FormHelperText error>{error?.message}</FormHelperText>}
+                        </FormControl>
+                    )}
                 />
-
 
                 <div style={{ paddingTop: 15, paddingBottom: 15 }}>
                     <Controller
@@ -300,6 +354,7 @@ const CreateTeam: NextPage = () => {
                     >
                         <TabPanel key="1" value={value} index={0} dir={theme.direction}>
                             <StepOne />
+                            {/* <StepTwo /> */}
                         </TabPanel>
                         <TabPanel key="2" value={value} index={1} dir={theme.direction}>
                             <StepTwo />
