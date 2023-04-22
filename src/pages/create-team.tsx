@@ -289,7 +289,7 @@ const CreateTeam: NextPage = () => {
                                 onChange={onChange}
                                 error={invalid}
                             >
-                                {generateSelectOptions(rolesList)}
+                                {generateSelectOptions(rolesList, value = "name")}
                             </Select>
                             {error && <FormHelperText error>{error?.message}</FormHelperText>}
                         </FormControl>
