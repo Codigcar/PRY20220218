@@ -94,7 +94,7 @@ const schema3 = yup.object().shape({
 export const generateSelectOptions = (options = optionsMocks, value = "id") => {
     return options.map((option: any) => {
         return (
-            <MenuItem key={option._id} value={value === "key" ? option._id : option.name}>
+            <MenuItem key={option._id} value={value === "id" ? option._id : option.name}>
                 {option.name}
             </MenuItem>
         );
