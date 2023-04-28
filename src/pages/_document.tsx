@@ -2,7 +2,7 @@ import theme from '@/config/theme'
 import { Button } from '@mui/material'
 import { Html, Head, Main, NextScript } from 'next/document'
 import Link from 'next/link'
-
+// import 'antd/dist/antd.css'
 
 export const CHeader = ({ children }: any) => {
   return <div style={{

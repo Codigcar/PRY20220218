@@ -101,7 +101,7 @@ export const generateSelectOptions = (options = optionsMocks, value = "id") => {
     });
 };
 
-const rolesList = [
+export const rolesList = [
     {
         _id: "1",
         name: "Delantero"

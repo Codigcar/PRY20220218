@@ -40,6 +40,9 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
             data
         }
     }).catch(err => {
+        console.log("🚀 ----------------------------------------------🚀")
+        console.log("🚀 ~ file: toast.tsx:46 ~ ShowToast ~ err:", err)
+        console.log("🚀 ----------------------------------------------🚀")
         toast.update(id, {
             render: err.message ?? "Resultados no encontrados",
             type: "error",

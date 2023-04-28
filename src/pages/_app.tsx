@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 // Client-side cache, shared for the whole session of the user in the browser.
 // const clientSideEmotionCache = createEmotionCache();
 
-
 export default function MyApp(props: any) {
   const { Component, pageProps } = props;
   return (
