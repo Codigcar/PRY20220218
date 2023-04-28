@@ -29,13 +29,13 @@ import { RangePickerProps } from "antd/es/date-picker";
 const { RangePicker } = DatePicker;
 
 const schema1 = yup.object().shape({
-    // player: yup.string().required("* Campo requerido"),
-    // average_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
-    // maximum_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
-    // traveled_distance: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
-    // sprint: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
-    // average_heart_rate: yup.number().typeError('* Debe ser un número').required("* Campo requerido").max(200, "* Debe ser menor que 200"),
-    // time_played: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    player: yup.string().required("* Campo requerido"),
+    average_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    maximum_speed: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    traveled_distance: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    sprint: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
+    average_heart_rate: yup.number().typeError('* Debe ser un número').required("* Campo requerido").max(200, "* Debe ser menor que 200"),
+    time_played: yup.number().typeError('* Debe ser un número').required("* Campo requerido"),
     date: yup.array(yup.string().required())
         .required('* Campo requerido')
 });
@@ -63,12 +63,7 @@ const Calculation: NextPage = () => {
             ...data,
             start_date: data.date[0],
             end_date: data.date[1]
-            // start_date: '2023/04/27',
-            // end_date: '2023/05/04'
         }
-        console.log("🚀 ---------------------------------------------🚀")
-        console.log("🚀 ~ file: IoT.tsx:60 ~ onSubmit ~ body:", body)
-        console.log("🚀 ---------------------------------------------🚀")
         const exercise = await ShowToast({ path: '/exercise-calculation', method: "POST", body })
         if (!exercise.status) return
         setCalculation(exercise.data)

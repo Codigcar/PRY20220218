@@ -17,6 +17,7 @@ import CGraphicsPieChart from "@/components/graphics_piechart";
 
 const schema1 = yup.object().shape({
     player: yup.string().required("* Campo requerido"),
+    weekSelector: yup.string().required("* Campo requerido"),
     // player_week: yup.string().required("* Campo requerido"),
 });
 
@@ -58,6 +59,7 @@ const Results: NextPage = () => {
     const [player, setPlayer] = useState([])
     const [calculation, setCalculation] = useState<any>(null)
     const [weekList, setWeekList] = useState<any>([]);
+    const [weekListSelector, setWeekListSelector] = useState<any>([]);
     const [playerWeeksSelected, setPlayerWeeksSelected] = useState<string[]>([]);
     const [playersElite, setPlayersElite] = useState<any>([])
     const [iotSelected, setIotSelected] = useState('Distancia')
@@ -81,6 +83,13 @@ const Results: NextPage = () => {
             .then((response: any) => {
                 if (!response.status) return
                 setWeekList(response?.data?.weeks)
+                const weeksSelectors = Array.from(response?.data?.weeks).map((week) => {
+                    return {
+                        _id: week,
+                        name: week
+                    }
+                })
+                setWeekListSelector(weeksSelectors)
             })
     }, [watch('player')])
 
@@ -117,25 +126,21 @@ const Results: NextPage = () => {
     }
 
     const onSubmit = async (body: any) => {
-        console.log("🚀 -------------------------------------------------🚀")
-        console.log("🚀 ~ file: results.tsx:39 ~ onSubmit ~ body:", body)
-        console.log("🚀 -------------------------------------------------🚀")
-        const response = await ShowToast({ path: `/exercise-calculation/record?player=${body.player}`, method: "GET" })
-        console.log("🚀 ---------------------------------------------------------🚀")
-        console.log("🚀 ~ file: results.tsx:47 ~ onSubmit ~ response:", response)
-        console.log("🚀 ---------------------------------------------------------🚀")
-        if (!response.status) return
-        setCalculation(response.data)
-        const graphics = convertToGraphicsData(response.data.records, iotSelected, response.data.player.role)
-        console.log("🚀 ----------------------------------------------------------🚀")
-        console.log("🚀 ~ file: results.tsx:158 ~ onSubmit ~ graphics:", graphics)
-        console.log("🚀 ----------------------------------------------------------🚀")
+        const responseRecord = await ShowToast({ path: `/exercise-calculation/record?player=${body.player}&week=${body.weekSelector}`, method: "GET" })
+        const responseListRecords = await ShowToast({ path: `/exercise-calculation/record?player=${body.player}`, method: "GET" })
+        if (!responseListRecords.status || !responseRecord.status) return
+        const graphics = convertToGraphicsData(responseListRecords.data.records, iotSelected, responseListRecords.data.player.role)
+        setCalculation(responseRecord.data)
         setDataGraphics(graphics)
-        // setDataGraphicsPieChart([
-        //     {
-        //         name: '', value: response.data
-        //     }
-        // ])
+        const dataGraphicsToPieChart = [
+            { name: 'Distancia Recorrida', value: Math.abs(Number(responseRecord.data.records[0].traveled_distance_calculated)) },
+            { name: 'Frencuencia Cardiaca', value: Math.abs(Number(responseRecord.data.records[0].average_heart_rate_calculated)) },
+            { name: 'Sprint', value: Math.abs(Number(responseRecord.data.records[0].sprint_calculated)) },
+            { name: 'Tiempo Jugado', value: Math.abs(Number(responseRecord.data.records[0].time_played_calculated)) },
+            { name: 'Velocidad Máxima', value: Math.abs(Number(responseRecord.data.records[0].maximum_speed_calculated)) },
+            { name: 'Velocidad Media', value: Math.abs(Number(responseRecord.data.records[0].average_speed_calculated)) },
+        ]
+        setDataGraphicsPieChart(dataGraphicsToPieChart)
     }
 
     return (
@@ -166,7 +171,7 @@ const Results: NextPage = () => {
                                     </FormControl>
                                 )}
                             />
-                            <div style={{ marginTop: 20 }}>
+                            <div >
                                 <FormControl fullWidth style={{ marginTop: 50, marginBottom: 50 }}>
                                     <InputLabel id="demo-simple-select-label2">Artefactor IOT</InputLabel>
                                     <Select
@@ -185,12 +190,36 @@ const Results: NextPage = () => {
                                     </Select>
                                 </FormControl>
                             </div>
-                            <FormControl sx={{ m: 1, width: 300 }}>
-                                <InputLabel id="demo-multiple-chip-label">Semana</InputLabel>
+                            <div style={{ marginBottom: 50 }}>
+                                <Controller
+                                    control={control}
+                                    name="weekSelector"
+                                    render={({
+                                        field: { onChange, value },
+                                        fieldState: { invalid, error }
+                                    }) => (
+                                        <FormControl fullWidth>
+                                            <InputLabel error={invalid}>Selecciona una semana para su análisis</InputLabel>
+                                            <Select
+                                                value={value}
+                                                label="Selecciona una semana para su análisi"
+                                                onChange={onChange}
+                                                error={invalid}
+                                            >
+                                                {generateSelectOptions(weekListSelector)}
+                                            </Select>
+                                            {error && <FormHelperText error>{error?.message}</FormHelperText>}
+                                        </FormControl>
+                                    )}
+                                />
+                            </div>
+                            <FormControl sx={{ width: '100%' }}>
+                                <InputLabel id="demo-multiple-chip-label">Semanas a comparar</InputLabel>
                                 <Select
                                     labelId="demo-multiple-chip-label"
                                     id="demo-multiple-chip"
                                     multiple
+                                    label="Semanas a comparar"
                                     value={playerWeeksSelected}
                                     onChange={handleChangeMultipleSelectors}
                                     input={<OutlinedInput id="select-multiple-chip" label="Semana" />}
@@ -291,12 +320,16 @@ const Results: NextPage = () => {
                 </div>
             </div>
             <div style={{ flex: 1, flexDirection: 'row' }}>
-                <div style={{  width: '80%', marginTop: 50, marginBottom: 50 }}>
-                    <CGraphics data={dataGraphics} />
-                </div>
-                <div style={{ marginTop: 50, marginBottom: 50 }}>
-                    <CGraphicsPieChart />
-                </div>
+                {
+                    dataGraphics ? <div style={{ width: '80%', marginTop: 50, marginBottom: 50 }}>
+                        <CGraphics data={dataGraphics} />
+                    </div> : null
+                }
+                {
+                    calculation ? <div style={{ marginTop: 50, marginBottom: 50 }}>
+                        <CGraphicsPieChart data={dataGraphicsPieChart} />
+                    </div> : null
+                }
             </div>
         </div >
     )

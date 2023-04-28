@@ -16,11 +16,11 @@ const dataMock = [
 ];
 
 const CGraphicsPieChart: FC<{ data: Props[] }> = ({ data = dataMock }) => {
-    return <PieChart width={1000} height={400}>
+    return <PieChart width={1000} height={500}>
         <Pie
             dataKey="value"
             data={data}
-            cx={400}
+            cx={750}
             cy={200}
             outerRadius={180}
             fill="#8884d8"
