@@ -111,12 +111,12 @@ const Results: NextPage = () => {
     const convertToGraphicsData = (records: any, propToFilter: any, playerRole: any) => {
         const data = playerWeeksSelected.map((week) => {
             const filterRecordByWeek: any = Array.from(records).filter((record: any) => record.week === week)[0]
-            const filterUseRecordByArtefactoIoT = filterRecordByWeek[`${propToFilter}_calculated`]
+            const filterUseRecordByArtefactoIoT = filterRecordByWeek[`${propToFilter}`]
             const filterUserExpertByArtefactoIoT: any = Array.from(playersElite).filter((record: any) => record.role === playerRole)[0]
             const graphicData = {
                 name: `Semana ${week}`,
-                jugador_amateur: filterUserExpertByArtefactoIoT[`${propToFilter}`],
-                jugador_elite: filterUseRecordByArtefactoIoT,
+                jugador_amateur: filterUseRecordByArtefactoIoT,
+                jugador_elite: filterUserExpertByArtefactoIoT[`${propToFilter}`],
                 amt: 2400,
             }
             return graphicData
@@ -274,7 +274,8 @@ const Results: NextPage = () => {
                                     </div>
                                     <div >
                                         Velocidad media:{' '}
-                                        <span style={calculation?.records[0].average_speed_calculated > 0 ? { color: 'green' } : { color: 'red' }}>
+                                        <span style={calculation?.records[0].average_speed_calculated
+                                            > 0 ? { color: 'green' } : { color: 'red' }}>
                                             {calculation?.records[0].average_speed_calculated.toFixed(2)}
                                             {calculation?.records[0].average_speed_calculated.toFixed(2) && '%'}
                                         </span>
@@ -321,7 +322,7 @@ const Results: NextPage = () => {
             </div>
             <div style={{ flex: 1, flexDirection: 'row' }}>
                 {
-                    dataGraphics.length >0 ? <div style={{ width: '80%', marginTop: 50, marginBottom: 50 }}>
+                    dataGraphics.length > 0 ? <div style={{ width: '80%', marginTop: 50, marginBottom: 50 }}>
                         <CGraphics data={dataGraphics} />
                     </div> : null
                 }
