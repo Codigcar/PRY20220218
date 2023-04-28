@@ -91,6 +91,7 @@ const Results: NextPage = () => {
                     }
                 })
                 setWeekListSelector(weeksSelectors)
+                setPlayerWeeksSelected([])
             })
     }, [watch('player')])
 
