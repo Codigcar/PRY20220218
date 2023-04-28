@@ -62,6 +62,7 @@ const Results: NextPage = () => {
     const [weekListSelector, setWeekListSelector] = useState<any>([]);
     const [playerWeeksSelected, setPlayerWeeksSelected] = useState<string[]>([]);
     const [playersElite, setPlayersElite] = useState<any>([])
+    const [playersEliteFiltered, setPlayersEliteFiltered] = useState<any>([])
     const [iotSelected, setIotSelected] = useState('Distancia')
     const [dataGraphics, setDataGraphics] = useState<any>([])
     const [dataGraphicsPieChart, setDataGraphicsPieChart] = useState<any>([])
@@ -113,6 +114,7 @@ const Results: NextPage = () => {
             const filterRecordByWeek: any = Array.from(records).filter((record: any) => record.week === week)[0]
             const filterUseRecordByArtefactoIoT = filterRecordByWeek[`${propToFilter}`]
             const filterUserExpertByArtefactoIoT: any = Array.from(playersElite).filter((record: any) => record.role === playerRole)[0]
+            setPlayersEliteFiltered(filterUserExpertByArtefactoIoT)
             const graphicData = {
                 name: `Semana ${week}`,
                 jugador_amateur: filterUseRecordByArtefactoIoT,
@@ -133,12 +135,18 @@ const Results: NextPage = () => {
         setCalculation(responseRecord.data)
         setDataGraphics(graphics)
         const dataGraphicsToPieChart = [
-            { name: 'Distancia Recorrida', value: Math.abs(Number(responseRecord.data.records[0].traveled_distance_calculated)) },
-            { name: 'Frencuencia Cardiaca', value: Math.abs(Number(responseRecord.data.records[0].average_heart_rate_calculated)) },
-            { name: 'Sprint', value: Math.abs(Number(responseRecord.data.records[0].sprint_calculated)) },
-            { name: 'Tiempo Jugado', value: Math.abs(Number(responseRecord.data.records[0].time_played_calculated)) },
-            { name: 'Velocidad Máxima', value: Math.abs(Number(responseRecord.data.records[0].maximum_speed_calculated)) },
-            { name: 'Velocidad Media', value: Math.abs(Number(responseRecord.data.records[0].average_speed_calculated)) },
+            // { name: 'Distancia Recorrida', value: Math.abs(Number(responseRecord.data.records[0].traveled_distance_calculated)) },
+            // { name: 'Frencuencia Cardiaca', value: Math.abs(Number(responseRecord.data.records[0].average_heart_rate_calculated)) },
+            // { name: 'Sprint', value: Math.abs(Number(responseRecord.data.records[0].sprint_calculated)) },
+            // { name: 'Tiempo Jugado', value: Math.abs(Number(responseRecord.data.records[0].time_played_calculated)) },
+            // { name: 'Velocidad Máxima', value: Math.abs(Number(responseRecord.data.records[0].maximum_speed_calculated)) },
+            // { name: 'Velocidad Media', value: Math.abs(Number(responseRecord.data.records[0].average_speed_calculated)) },
+            { name: 'Distancia Recorrida', value: Math.abs(Number(playersEliteFiltered.traveled_distance)) },
+            { name: 'Frencuencia Cardiaca', value: Math.abs(Number(playersEliteFiltered.average_heart_rate)) },
+            { name: 'Sprint', value: Math.abs(Number(playersEliteFiltered.sprint)) },
+            { name: 'Tiempo Jugado', value: Math.abs(Number(playersEliteFiltered.time_played)) },
+            { name: 'Velocidad Máxima', value: Math.abs(Number(playersEliteFiltered.maximum_speed)) },
+            { name: 'Velocidad Media', value: Math.abs(Number(playersEliteFiltered.average_speed)) },
         ]
         setDataGraphicsPieChart(dataGraphicsToPieChart)
     }
@@ -309,7 +317,7 @@ const Results: NextPage = () => {
                                     </div>
                                     <div>
                                         Tiempo jugado:{' '}
-                                        <span style={calculation?.time_played_calculated > 0 ? { color: 'green' } : { color: 'red' }}>
+                                        <span style={calculation?.records[0].time_played_calculated > 0 ? { color: 'green' } : { color: 'red' }}>
                                             {calculation?.records[0].time_played_calculated.toFixed(2)}
                                             {calculation?.records[0].time_played_calculated.toFixed(2) && '%'}
                                         </span>
@@ -326,6 +334,7 @@ const Results: NextPage = () => {
                         <CGraphics data={dataGraphics} />
                     </div> : null
                 }
+                <h2 style={{ textAlign: 'center' }}>{playersEliteFiltered.role}</h2>
                 {
                     calculation ? <div style={{ marginTop: 50, marginBottom: 50 }}>
                         <CGraphicsPieChart data={dataGraphicsPieChart} />
