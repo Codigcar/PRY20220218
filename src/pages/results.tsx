@@ -321,7 +321,7 @@ const Results: NextPage = () => {
             </div>
             <div style={{ flex: 1, flexDirection: 'row' }}>
                 {
-                    dataGraphics ? <div style={{ width: '80%', marginTop: 50, marginBottom: 50 }}>
+                    dataGraphics.length >0 ? <div style={{ width: '80%', marginTop: 50, marginBottom: 50 }}>
                         <CGraphics data={dataGraphics} />
                     </div> : null
                 }
