@@ -333,7 +333,7 @@ const Results: NextPage = () => {
                         <CGraphics data={dataGraphics} />
                     </div> : null
                 }
-                {dataGraphicsPieChart.length > 0 ? <h2 style={{ textAlign: 'center' }}>Jugador élite: {calculation?.player?.role}</h2> : null}
+                {dataGraphicsPieChart.length > 0 ? <h2 style={{ textAlign: 'center' }}>Jugador élite: {playersEliteFilteredRef.current.name}</h2> : null}
                 {
                     <div style={{ marginTop: 50, marginBottom: 50 }}>
                         <CGraphicsPieChart data={dataGraphicsPieChart} />
