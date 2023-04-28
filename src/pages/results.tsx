@@ -63,7 +63,7 @@ const Results: NextPage = () => {
     const [playerWeeksSelected, setPlayerWeeksSelected] = useState<string[]>([]);
     const [playersElite, setPlayersElite] = useState<any>([])
     // const [playersEliteFiltered, setPlayersEliteFiltered] = useState<any>([])
-    const playersEliteFilteredRef = useRef([])
+    const playersEliteFilteredRef = useRef<any>([])
     const [iotSelected, setIotSelected] = useState('Distancia')
     const [dataGraphics, setDataGraphics] = useState<any>([])
     const [dataGraphicsPieChart, setDataGraphicsPieChart] = useState<any>([])
@@ -333,7 +333,7 @@ const Results: NextPage = () => {
                         <CGraphics data={dataGraphics} />
                     </div> : null
                 }
-                {dataGraphicsPieChart.length > 0 ? <h2 style={{ textAlign: 'center' }}>Jugador élite: {playersEliteFilteredRef.current.name}</h2> : null}
+                {dataGraphicsPieChart.length > 0 ? <h2 style={{ textAlign: 'center' }}>Jugador élite: {playersEliteFilteredRef.current?.name!}</h2> : null}
                 {
                     <div style={{ marginTop: 50, marginBottom: 50 }}>
                         <CGraphicsPieChart data={dataGraphicsPieChart} />
