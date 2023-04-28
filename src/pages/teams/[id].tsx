@@ -7,6 +7,7 @@ const TeamById: NextPage<any> = ({ team }: any) => {
     return (
         <div>
             <CHeader />
+            <div style={{ height: 80 }} />
             <h1 style={{ padding: 20 }}>{team.name}</h1>
             <div style={{ display: 'flex', justifyContent: "space-around" }}>
                 <div style={{ width: '48%' }}>

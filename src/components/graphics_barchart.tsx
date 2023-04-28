@@ -64,7 +64,7 @@ const dataMock = [
 
 const CGraphicsBarChart: FC<{ data: Props[] }> = ({ data = dataMock }) => {
     return <BarChart
-        width={1500}
+        width={1400}
         height={500}
         data={data}
         margin={{

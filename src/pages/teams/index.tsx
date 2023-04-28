@@ -32,6 +32,7 @@ const List: NextPage = () => {
     return (
         <>
             <CHeader />
+            <div style={{ height: 80 }} />
             <div style={{ width: '80%', margin: 'auto', marginTop: 50, marginBottom: 100 }}>
                 <table className="table table-bordered">
                     <thead className="thead-dark">

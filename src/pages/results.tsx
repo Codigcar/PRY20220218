@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Chip, FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent } from "@mui/material";
 import * as yup from "yup";
 import { fetchCustom } from "@/utils/fetchCustom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { generateSelectOptions } from "./create-team";
 import { CHeader } from "./_document";
@@ -62,7 +62,8 @@ const Results: NextPage = () => {
     const [weekListSelector, setWeekListSelector] = useState<any>([]);
     const [playerWeeksSelected, setPlayerWeeksSelected] = useState<string[]>([]);
     const [playersElite, setPlayersElite] = useState<any>([])
-    const [playersEliteFiltered, setPlayersEliteFiltered] = useState<any>([])
+    // const [playersEliteFiltered, setPlayersEliteFiltered] = useState<any>([])
+    const playersEliteFilteredRef = useRef([])
     const [iotSelected, setIotSelected] = useState('Distancia')
     const [dataGraphics, setDataGraphics] = useState<any>([])
     const [dataGraphicsPieChart, setDataGraphicsPieChart] = useState<any>([])
@@ -91,7 +92,7 @@ const Results: NextPage = () => {
                     }
                 })
                 setWeekListSelector(weeksSelectors)
-                setPlayerWeeksSelected([])
+                // setPlayerWeeksSelected([])
             })
     }, [watch('player')])
 
@@ -115,7 +116,8 @@ const Results: NextPage = () => {
             const filterRecordByWeek: any = Array.from(records).filter((record: any) => record.week === week)[0]
             const filterUseRecordByArtefactoIoT = filterRecordByWeek[`${propToFilter}`]
             const filterUserExpertByArtefactoIoT: any = Array.from(playersElite).filter((record: any) => record.role === playerRole)[0]
-            setPlayersEliteFiltered(filterUserExpertByArtefactoIoT)
+            // setPlayersEliteFiltered(filterUserExpertByArtefactoIoT)
+            playersEliteFilteredRef.current = filterUserExpertByArtefactoIoT
             const graphicData = {
                 name: `Semana ${week}`,
                 jugador_amateur: filterUseRecordByArtefactoIoT,
@@ -135,19 +137,14 @@ const Results: NextPage = () => {
         const graphics = convertToGraphicsData(responseListRecords.data.records, iotSelected, responseListRecords.data.player.role)
         setCalculation(responseRecord.data)
         setDataGraphics(graphics)
+        const playerEliteSelected: any = playersEliteFilteredRef.current
         const dataGraphicsToPieChart = [
-            // { name: 'Distancia Recorrida', value: Math.abs(Number(responseRecord.data.records[0].traveled_distance_calculated)) },
-            // { name: 'Frencuencia Cardiaca', value: Math.abs(Number(responseRecord.data.records[0].average_heart_rate_calculated)) },
-            // { name: 'Sprint', value: Math.abs(Number(responseRecord.data.records[0].sprint_calculated)) },
-            // { name: 'Tiempo Jugado', value: Math.abs(Number(responseRecord.data.records[0].time_played_calculated)) },
-            // { name: 'Velocidad Máxima', value: Math.abs(Number(responseRecord.data.records[0].maximum_speed_calculated)) },
-            // { name: 'Velocidad Media', value: Math.abs(Number(responseRecord.data.records[0].average_speed_calculated)) },
-            { name: 'Distancia Recorrida', value: Math.abs(Number(playersEliteFiltered.traveled_distance)) },
-            { name: 'Frencuencia Cardiaca', value: Math.abs(Number(playersEliteFiltered.average_heart_rate)) },
-            { name: 'Sprint', value: Math.abs(Number(playersEliteFiltered.sprint)) },
-            { name: 'Tiempo Jugado', value: Math.abs(Number(playersEliteFiltered.time_played)) },
-            { name: 'Velocidad Máxima', value: Math.abs(Number(playersEliteFiltered.maximum_speed)) },
-            { name: 'Velocidad Media', value: Math.abs(Number(playersEliteFiltered.average_speed)) },
+            { name: 'Distancia Recorrida', value: Number(playerEliteSelected.traveled_distance) },
+            { name: 'Frencuencia Cardiaca', value: Number(playerEliteSelected.average_heart_rate) },
+            { name: 'Sprint', value: Number(playerEliteSelected.sprint) },
+            { name: 'Tiempo Jugado', value: Number(playerEliteSelected.time_played) },
+            { name: 'Velocidad Máxima', value: Number(playerEliteSelected.maximum_speed) },
+            { name: 'Velocidad Media', value: Number(playerEliteSelected.average_speed) },
         ]
         setDataGraphicsPieChart(dataGraphicsToPieChart)
     }
@@ -155,6 +152,7 @@ const Results: NextPage = () => {
     return (
         <div>
             <CHeader />
+            <div style={{ height: 80 }} />
             <div style={{ display: 'flex', marginTop: 30 }}>
                 <div style={{ width: '48%' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '80%', margin: 'auto' }}>
@@ -335,11 +333,11 @@ const Results: NextPage = () => {
                         <CGraphics data={dataGraphics} />
                     </div> : null
                 }
-                <h2 style={{ textAlign: 'center' }}>{playersEliteFiltered.role}</h2>
+                {dataGraphicsPieChart.length > 0 ? <h2 style={{ textAlign: 'center' }}>Jugador élite: {calculation?.player?.role}</h2> : null}
                 {
-                    calculation ? <div style={{ marginTop: 50, marginBottom: 50 }}>
+                    <div style={{ marginTop: 50, marginBottom: 50 }}>
                         <CGraphicsPieChart data={dataGraphicsPieChart} />
-                    </div> : null
+                    </div>
                 }
             </div>
         </div >

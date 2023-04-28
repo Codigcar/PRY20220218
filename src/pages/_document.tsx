@@ -9,7 +9,11 @@ export const CHeader = ({ children }: any) => {
     backgroundColor: theme.palette.primary.main, paddingBottom: 15, paddingTop: 15,
     display: 'flex', justifyContent: "space-between",
     paddingLeft: 20,
-    paddingRight: 30
+    paddingRight: 30,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
   }} >
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ paddingLeft: 25 }}>
@@ -58,7 +62,7 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet" />
       </Head>
-      <body>
+      <body style={{ maxWidth: 1500, margin: 'auto' }}>
         <Main />
         <NextScript />
       </body>

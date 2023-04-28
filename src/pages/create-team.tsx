@@ -331,6 +331,7 @@ const CreateTeam: NextPage = () => {
     return (
         <>
             <CHeader />
+            <div style={{ height: 80 }} />
             <form>
                 <Box sx={{ borderColor: '#E7EBEF', borderWidth: 8, width: "80%", margin: 'auto', marginTop: 8 }}>
                     <AppBar position="static">

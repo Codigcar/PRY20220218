@@ -78,6 +78,7 @@ const Calculation: NextPage = () => {
     return (
         <div>
             <CHeader />
+            <div style={{ height: 80 }} />
             <div style={{ display: 'flex', marginTop: 30, flexDirection: 'column' }}>
                 <h2 style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 15 }}>Registro del Artefacto IoT</h2>
                 <div style={{ width: '65%', margin: 'auto' }}>

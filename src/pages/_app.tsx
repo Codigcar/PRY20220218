@@ -19,7 +19,6 @@ export default function MyApp(props: any) {
       </Head>
       <ToastContainer />
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
