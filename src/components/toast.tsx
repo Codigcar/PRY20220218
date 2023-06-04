@@ -28,7 +28,7 @@ export default async function ShowToast({ path, method = "GET", body }: any) {
 
         }
         toast.update(id, {
-            render: "Todo correcto",
+            render: "¡Correcto!",
             type: "success",
             isLoading: false,
             autoClose: 2000,
